@@ -1,0 +1,19 @@
+{
+  "name": "src",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "set HOST=localhost&& set PORT=8000&& node server.js",
+    "dev": "set HOST=localhost&& set PORT=8000&& nodemon src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  },
+  "dependencies": {
+   
+  }
+}
