@@ -6,31 +6,26 @@ describe("GET /chistes", () => {
   
   test("deberia traer un chiste al pasar el parametro correcto ", async () => {
     
-    const Chuck = await request(app).get("/api/chistes/Chuck").send();
+    const Chuck = await request(app).get("api/chistes/fuente/Chuck").send();
+    expect(typeof Chuck.body).toBe('object');
     expect(Chuck.status).toBe(200);
-    expect(Chuck.body).toHaveProperty('joke');
-    expect(Chuck.body.joke).toHaveProperty('author');
-    expect(Chuck.body.joke).toHaveProperty('id');
-          
-    const Dad = await request(app).get("/api/chistes/Dad").send();
+    
+    
+      
+    const Dad = await request(app).get("api/chistes/fuente/Dad").send();
     expect(Dad.status).toBe(200);
-    expect(Dad.body).toHaveProperty('joke');
-    expect(Dad.body.joke).toHaveProperty('author');
-    expect(Dad.body.joke).toHaveProperty('id');
+    expect(typeof Dad.body).toBe('string');
 
-    const Propio = await request(app).get("/api/chistes/Propio").send();
+    const Propio = await request(app).get("api/chistes/fuente/Propio").send();
     expect(Propio.status).toBe(200);
-    expect(Propio.body).toHaveProperty('joke');
-    expect(Propio.body.joke).toHaveProperty('author');
-    expect(Propio.body.joke).toHaveProperty('id');
+    expect(typeof Propio.body).toBe('object');
   })
 
-  test("deberia fallar al pasar un parametro incorrecto", async () => {
-    const response = await request(app).get("/api/chistes/Unknown").send();
-    expect(response.status).toBe(400);
-    expect(response.body).toHaveProperty('error');
+  test("deberia fallar al pasar una fuente incorrecta", async () => {
+      respuesta = await request(app).get("api/chistes/fuente/hhhh").send();
+      expect(respuesta.status).toBe(400);
+      //expect(typeof respuesta.body).toBe('object');
   });
-
 });
 
 

@@ -11,3 +11,8 @@ npm install
 se podra visualisar facilmentye la codumentacion
 Pasos>>
 Crear doc swagger js y especificar rutas
+
+PARA TESTS
+se corre con comando npx jest
+primero hay usar el comando npm update para que se decarguen las dependencias faltantes
+se pueden hacer todas en un solo archivo
