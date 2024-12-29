@@ -13,6 +13,6 @@ Pasos>>
 Crear doc swagger js y especificar rutas
 
 PARA TESTS
-se corre con comando npx jest
+se corre con comando npm run test
 primero hay usar el comando npm update para que se decarguen las dependencias faltantes
 se pueden hacer todas en un solo archivo

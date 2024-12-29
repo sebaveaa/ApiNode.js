@@ -1,10 +1,11 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const chisteRouter = require("./routes/chisteRoutes");
+
 
 const app = express();
 
-app.use(bodyParser.json())
-app.use("/api/chistes", chisteRouter)
+app.use(express.json())//hace que el body de la peticion sea un json
+app.use("/api/chistes/fuente", chisteRouter)
+
 
 module.exports = app;
