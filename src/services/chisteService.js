@@ -23,8 +23,19 @@ const getRandomChiste = async () => {
     return chiste[0];
 };
 
+const postChiste = async (json) => {
+    return await Chiste.create(json);
+};
+const chisteExistente = async (json) => {
+    return await Chiste.findOne(json);
+}
+
+
+
 module.exports = {
     getChuckJoke,
     getDadJoke,
-    getRandomChiste
+    getRandomChiste,
+    chisteExistente,
+    postChiste,
 };
