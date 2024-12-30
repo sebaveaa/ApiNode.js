@@ -12,7 +12,6 @@ app.listen(PORT, () => {
     swaggerDocs(app,PORT)
 });
 
-
 mongoose.connect('mongodb+srv://sdvera23:1YuEwRQ2TgQKVHHa@chistesdb.kib8q.mongodb.net/?retryWrites=true&w=majority&appName=ChistesDB')
     .then(() => {
         console.log('Connected to MongoDB');
