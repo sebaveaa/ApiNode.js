@@ -23,8 +23,13 @@ const getChiste = async (req, res) => {
                 res.status(200).send(`<h1>Chiste de papa</h2><h2>${chiste}</h2>`);
                 break;
             case "Propio":
-                chiste = await chisteService.getChistePropio(); // LLamada a db desde Service
-                res.status(200).send(`<h1>Chiste proveniente de DB </h1><h2> ${chiste.texto}</h2>Id en Db: ${chiste._id}`);
+                chiste = await chisteService.getRandomChiste();
+                if(chiste){
+                    res.status(200).send(`<h1>Chiste proveniente de DB </h1><h2> ${chiste.texto}</h2>Id en Db: ${chiste._id}`);
+                }
+                else{
+                    res.status(404).send('<h1>No se encontraron chistes en la DB.</h1>');
+                }
                 break;
         }
     } catch (error) {
@@ -64,14 +69,29 @@ const postChiste= async(req, res) => {
         const chiste = await chisteService.postChiste(req.body);
         res.status(201).json(chiste);
     } catch (error) {
-    res.status(500).json({ message: error.message});
-}
+        res.status(500).json({ error: error.message});
+    }
+};
+
+const deleteChiste = async (req, res) => {
+    const id = req.params.f;
+    try {
+        const chiste = await chisteService.deleteChisteByID(id);
+        if (chiste) { 
+            res.status(200).send(`<h1>Chiste ${chiste._id} eliminado</h1><h2> Texto: ${chiste.texto} </h2>`);
+        } else {
+            res.status(404).send('No se encontró el chiste para eliminar');
+        }
+    } catch (error) {
+        console.error('Error al eliminar el Chiste:', error);
+        res.status(500).send({status: 'FAILED', error: error.message});
+    }
 };
 
 module.exports ={
     getChiste,
     postChiste,
-    putChiste
+    deleteChiste
 };
 
 

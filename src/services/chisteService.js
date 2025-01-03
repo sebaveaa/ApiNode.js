@@ -32,10 +32,21 @@ const chisteExistente = async (json) => {
     return await Chiste.findOne(id)
 }
 
+const deleteChisteByID = async(id) => { 
+    try {
+        const resultado = await Chiste.findByIdAndDelete(id); 
+        return resultado;
+    } catch (error) {
+        console.error('Error al eliminar el Chiste:', error); 
+        throw error;
+    }
+}
+
 module.exports = {
     getChuckJoke,
     getDadJoke,
     getChistePropio,
     chisteExistente,
     postChiste,
+    deleteChisteByID
 };

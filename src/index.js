@@ -8,7 +8,11 @@ const PORT = process.env.PORT || 3000
 
 app.listen(PORT, () => {
     console.log(`API escuchando a puerto ${PORT}`)
-    console.log(`visitar http://localhost:${PORT}/api/chistes `);
+    console.log();
+    console.log(`Visitar http://localhost:${PORT}/api/chistes/fuente/Dad para ver los Dad Jokes`);
+    console.log(`Visitar http://localhost:${PORT}/api/chistes/fuente/Chuck para ver los chistes de Chuck Norris`);
+    console.log(`Visitar http://localhost:${PORT}/api/chistes/fuente/Propio para ver los chistes de la BD`);
+    console.log();
     swaggerDocs(app,PORT);
 });
 
