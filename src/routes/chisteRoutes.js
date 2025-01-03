@@ -126,7 +126,6 @@ Router.get("/:f",chisteController.getChiste);
  *                   example: Mensaje proveniente del error
  */
 Router.post("/Propio", chisteController.postChiste);
-
 Router.put('/:id', chisteController.putChiste);
 
 module.exports = Router;
