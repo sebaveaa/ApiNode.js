@@ -31,7 +31,7 @@ const mongoose = require('mongoose');
  *             - Malo
  */
 const ChisteSchema = mongoose.Schema(
-    {
+    { 
         texto:{
             type: String,
             required: true
