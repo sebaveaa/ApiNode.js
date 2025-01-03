@@ -50,7 +50,7 @@ const postChiste= async(req, res) => {
         const chiste = await chisteService.postChiste(req.body);
         res.status(201).json(chiste);
     } catch (error) {
-    res.status(500).json({ message: error.message});
+    res.status(500).json({ error: error.message});
 }
 };
 
