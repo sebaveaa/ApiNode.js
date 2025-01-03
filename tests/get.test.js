@@ -2,7 +2,6 @@
 const request = require("supertest");
 const app = require("../src/app");
 const mongoose = require('mongoose');
-const Chiste = require('../src/models/chiste.model');
 //necesario para la conexion con la base de datos y que no se cuelgue
 
 beforeAll(async () => {

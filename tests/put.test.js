@@ -20,8 +20,14 @@ describe('PUT /chistes/:id', () => {
         await chiste.save();
         chisteId = chiste._id;
     });
+
     afterAll(async () => {
-        
+        await Chiste.deleteOne({
+            texto: 'Texto del chiste actualizado'
+        });
+        await Chiste.deleteOne({
+            texto: 'Este es un chiste de prueba'
+        });
         await mongoose.connection.close();
     });
 

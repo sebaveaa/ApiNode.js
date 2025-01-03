@@ -23,7 +23,7 @@ const getChiste = async (req, res) => {
                 res.status(200).send(`<h1>Chiste de papa</h2><h2>${chiste}</h2>`);
                 break;
             case "Propio":
-                chiste = await chisteService.getRandomChiste();
+                chiste = await chisteService.getChistePropio();
                 if(chiste){
                     res.status(200).send(`<h1>Chiste proveniente de DB </h1><h2> ${chiste.texto}</h2>Id en Db: ${chiste._id}`);
                 }
@@ -39,19 +39,20 @@ const getChiste = async (req, res) => {
 
 };
 
-const putChiste = async (req, res) => {
-    const { id } = req.params;
-    const updates = req.body;
+const putChiste = async (req, res) => { 
+    const { id } = req.params; 
+    const updates = req.body; 
 
-    try {
-        const chiste = await Chiste.findByIdAndUpdate(id, updates, { new: true, runValidators: true });
-        if (!chiste) {
-            return res.status(404).send({ message: 'Chiste no encontrado' });
-        }
+    try { 
+        const chiste = await chisteService.putChisteByID(id, updates); 
+        if (!chiste) { 
+            return res.status(404).send({ message: 'Chiste no encontrado' }); 
+        } 
         res.status(200).send(chiste);
-    } catch (error) {
-        res.status(400).send({ message: error.message });
-    }
+    } 
+    catch (error) { 
+        res.status(400).send({ message: error.message }); 
+    } 
 };
 
 const postChiste= async(req, res) => {
@@ -91,7 +92,8 @@ const deleteChiste = async (req, res) => {
 module.exports ={
     getChiste,
     postChiste,
-    deleteChiste
+    deleteChiste,
+    putChiste
 };
 
 

@@ -42,11 +42,22 @@ const deleteChisteByID = async(id) => {
     }
 }
 
+const putChisteByID = async (id, updates) => {
+    try {   
+        const chiste = await Chiste.findByIdAndUpdate(id, updates, { new: true, runValidators: true }); 
+        return chiste;
+    } catch (error) {
+        console.error('Error al eliminar el Chiste:', error); 
+        throw error;
+    }
+};
+
 module.exports = {
     getChuckJoke,
     getDadJoke,
     getChistePropio,
     chisteExistente,
     postChiste,
-    deleteChisteByID
+    deleteChisteByID,
+    putChisteByID
 };
