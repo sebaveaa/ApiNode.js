@@ -25,12 +25,12 @@ const getRandomChiste = async () => {
 
 const postChiste = async (json) => {
     return await Chiste.create(json);
+    
 };
 const chisteExistente = async (json) => {
     return await Chiste.findOne(json);
+    return await Chiste.findOne(id)
 }
-
-
 
 module.exports = {
     getChuckJoke,
