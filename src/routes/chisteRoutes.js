@@ -52,8 +52,8 @@ const Chiste = require("../models/chiste.model")
  *                   type: string
  *                   example: Fuente de chiste invalida
  */
-
 Router.get("/:f",chisteController.getChiste)
+
 /**
  * @openapi 
  * /api/chistes/fuente/Propio:
@@ -126,7 +126,6 @@ Router.get("/:f",chisteController.getChiste)
  *                   example: Mensaje proveniente del error
  */
 Router.post("/Propio", chisteController.postChiste);
-
-
+Router.delete("/delete/:f", chisteController.deleteChiste );
 
 module.exports = Router;

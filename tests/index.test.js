@@ -51,6 +51,7 @@ describe("Post /chistes/fuente/Propio", () => {
     puntaje:1,
     categoria: 'Malo'
   }
+
   test("deberia traer el mismo chiste que se ingresa ", async () => {
     const respuesta = await request(app).post("/api/chistes/fuente/Propio").send(chiste)
      // .set('Accept', 'application/json');
@@ -72,12 +73,12 @@ describe("Post /chistes/fuente/Propio", () => {
     test("deberia fallar al pasar un chiste ya existente ", async () => {
           
           //Chiste que ya existe en la DB
-          const respuesta = await request(app).post("/api/chistes/fuente/Propio")
-          .send({
-                  texto:'Wife: Honey I’m pregnant. Me: Well…. what do we do now? Wife: Well, I guess we should go to a baby doctor. Me: Hm.. I think I’d be a lot more comfortable going to an adult doctor.',
-                  puntaje:1,
-                  categoria: 'Malo'
-          })
+          const respuesta = await request(app).post("/api/chistes/fuente/Propio").send({
+            texto:'Wife: Honey I’m pregnant. Me: Well…. what do we do now? Wife: Well, I guess we should go to a baby doctor. Me: Hm.. I think I’d be a lot more comfortable going to an adult doctor.',
+            puntaje:1,
+            categoria: 'Malo'
+          });
+          
           expect(respuesta.status).toBe(400);
           expect(typeof respuesta.body).toBe('object');
   });
