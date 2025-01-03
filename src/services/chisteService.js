@@ -12,7 +12,7 @@ const getChuckJoke = async () => {
 const getDadJoke = async () => {
     const fetch = (await import('node-fetch')).default;
     const response = await fetch('https://icanhazdadjoke.com/', {
-        headers: { 'Accept': 'application/json' }// necesario para retornar un json de la api
+        headers: { 'Accept': 'application/json' }
     });
     const data = await response.json();
     return data.joke;
@@ -29,6 +29,7 @@ const postChiste = async (json) => {
 const chisteExistente = async (json) => {
     return await Chiste.findOne(json);
 }
+
 
 
 
