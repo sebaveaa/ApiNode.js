@@ -35,7 +35,7 @@ const deleteChisteByID = async(id) => {
         const resultado = await Chiste.findByIdAndDelete(id); 
         return resultado;
     } catch (error) {
-        console.error('Error al eliminar el documento:', error); 
+        console.error('Error al eliminar el Chiste:', error); 
         throw error;
     }
 }

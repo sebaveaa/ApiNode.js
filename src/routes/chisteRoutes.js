@@ -126,6 +126,50 @@ Router.get("/:f",chisteController.getChiste)
  *                   example: Mensaje proveniente del error
  */
 Router.post("/Propio", chisteController.postChiste);
-Router.delete("/delete/:f", chisteController.deleteChiste );
+
+/**
+ * @swagger
+ * /api/chistes/fuente/delete/{id}:
+ *   delete:
+ *     tags:
+ *       - Chistes
+ *     summary: Elimina un chiste por su ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: El ID del chiste a eliminar
+ *     responses:
+ *       200:
+ *         description: Chiste eliminado exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: string
+ *               example: Chiste eliminado exitosamente
+ *       404:
+ *         description: No se encontró el chiste para eliminar
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: string
+ *               example: No se encontró el chiste para eliminar
+ *       500:
+ *         description: Error en el servidor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: FAILED
+ *                 error:
+ *                   type: string
+ *                   example: Descripción del error
+ */
+Router.delete("/delete/:f", chisteController.deleteChiste);
 
 module.exports = Router;

@@ -74,7 +74,6 @@ const deleteChiste = async (req, res) => {
     }
 };
 
-
 module.exports ={
     getChiste,
     postChiste,
