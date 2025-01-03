@@ -18,7 +18,7 @@ const getDadJoke = async () => {
     return data.joke;
 };
 
-const getRandomChiste = async () => {
+const getChistePropio = async () => {
     const chiste = await Chiste.aggregate([{ $sample: { size: 1 } }]);
     return chiste[0];
 };
@@ -35,7 +35,7 @@ const chisteExistente = async (json) => {
 module.exports = {
     getChuckJoke,
     getDadJoke,
-    getRandomChiste,
+    getChistePropio,
     chisteExistente,
     postChiste,
 };

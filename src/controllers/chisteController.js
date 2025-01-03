@@ -1,6 +1,5 @@
 const chisteService = require('../services/chisteService');
 
-
 const getChiste = async (req, res) => {
     
     const fuente = req.params.f;
@@ -24,7 +23,7 @@ const getChiste = async (req, res) => {
                 res.status(200).send(`<h1>Chiste de papa</h2><h2>${chiste}</h2>`);
                 break;
             case "Propio":
-                chiste = await chisteService.getRandomChiste(); // LLamada a db desde Service
+                chiste = await chisteService.getChistePropio(); // LLamada a db desde Service
                 res.status(200).send(`<h1>Chiste proveniente de DB </h1><h2> ${chiste.texto}</h2>Id en Db: ${chiste._id}`);
                 break;
         }
@@ -35,10 +34,7 @@ const getChiste = async (req, res) => {
 
 };
 
-
-const Chiste = require('../models/chiste.model');
-
-const updateChiste = async (req, res) => {
+const putChiste = async (req, res) => {
     const { id } = req.params;
     const updates = req.body;
 
@@ -52,10 +48,6 @@ const updateChiste = async (req, res) => {
         res.status(400).send({ message: error.message });
     }
 };
-
-
-
-
 
 const postChiste= async(req, res) => {
     const { texto, puntaje, categoria } = req.body;
@@ -76,26 +68,10 @@ const postChiste= async(req, res) => {
 }
 };
 
-
-const getRandomChisteId = async (req, res) => {
-    try {
-        const chiste = await Chiste.aggregate([{ $sample: { size: 1 } }]);
-        if (chiste.length === 0) {
-            return res.status(404).send({ message: 'No se encontraron chistes' });
-        }
-        res.status(200).send({ id: chiste[0]._id });
-    } catch (error) {
-        res.status(500).send({ message: error.message });
-    }
-};
-
-
-
 module.exports ={
     getChiste,
     postChiste,
-    updateChiste,
-    getRandomChisteId
+    putChiste
 };
 
 
