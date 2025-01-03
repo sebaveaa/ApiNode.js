@@ -1,4 +1,5 @@
 const chisteService = require('../services/chisteService');
+const Chiste = require('../models/chiste.model');
 
 
 const getChiste = async (req, res) => {
@@ -36,7 +37,28 @@ const getChiste = async (req, res) => {
 };
 
 
-const Chiste = require('../models/chiste.model');
+/**
+ * Controlador para obtener un chiste por su ID
+ * @param {object} req - Objeto de solicitud que es la id del chiste a obtener
+ * @param {object} res - Objeto de respuesta que es el chiste obtenido
+ * @returns {void}
+ */
+const getChisteID = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const chiste = await chisteService.getChisteById(id);
+        if (!chiste) {
+            return res.status(404).send({ message: 'Chiste no encontrado' });
+        }
+        res.status(200).send(`<h1>Chiste proveniente de DB </h1><h2> ${chiste.texto}</h2>Id en Db: ${chiste._id}`);
+    } catch (error) {
+        res.status(500).send({ message: error.message });
+    }
+};
+
+
+
 
 const updateChiste = async (req, res) => {
     const { id } = req.params;
@@ -95,7 +117,8 @@ module.exports ={
     getChiste,
     postChiste,
     updateChiste,
-    getRandomChisteId
+    getRandomChisteId,
+    getChisteID
 };
 
 

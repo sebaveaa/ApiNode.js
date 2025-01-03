@@ -127,7 +127,7 @@ Router.get("/:f",chisteController.getChiste)
  */
 Router.post("/Propio", chisteController.postChiste);
 /**
- * @route PUT /chistes/:id
+ * @route PUT /api/chistes/fuente/:id
  * @desc Actualiza un chiste existente
  * @access Public
  * @param {string} req.params.id - El ID del chiste a actualizar
@@ -138,7 +138,7 @@ Router.post("/Propio", chisteController.postChiste);
  */
 Router.put('/:id',chisteController.updateChiste);
 /**
- * @route GET /chistes/random
+ * @route GET /api/chistes/fuente/random
  * @desc Obtiene el ID de un chiste aleatorio
  * @access Public
  * @returns {object} 200 - Un objeto con el ID del chiste aleatorio
@@ -146,6 +146,15 @@ Router.put('/:id',chisteController.updateChiste);
  * @returns {object} 500 - Error del servidor
  */
 Router.get('/random', chisteController.getRandomChisteId);
+/** 
+    * @route GET /api/chistes/fuente/Propio/get/id:
+    * @desc Obtiene un chiste por su ID
+    * @access Public 
+    * @returns {object} 200 - El chiste encontrado 
+    * @returns {object} 404 - No se encontró el chiste 
+    * @returns {object} 500 - Error del servidor 
+ */
+Router.get('/GetChisteID/:id',chisteController.getChisteID);
 
 
 
