@@ -23,16 +23,17 @@ describe('GET /chistes/:id', () => {
 
     // Después realizar las pruebas, desconectar de la base de datos 
     afterAll(async () => {
+        await Chiste.deleteOne({
+            texto: 'Este es un chiste de prueba'
+        });
 
         await mongoose.connection.close();
     });
 
     it('debería devolver un chiste existente por su ID', async () => {
-        const response = await request(app).get(`/api/chistes/fuente/GetChisteID/${chisteId}`).send();
+        const response = await request(app).get(`/api/chistes/fuente/getChisteID/${chisteId}`).send();
         expect(typeof response.body).toBe('object');
         expect(response.status).toBe(200);
-        
-        
     });
 
     it('debería devolver 404 si el chiste no se encuentra', async () => {

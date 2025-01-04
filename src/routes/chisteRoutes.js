@@ -53,7 +53,6 @@ const Chiste = require("../models/chiste.model")
  *                   example: Fuente de chiste invalida
  */
 Router.get("/:f",chisteController.getChiste);
-Router.get("/:f",chisteController.getChiste)
 
 /**
  * @openapi 
@@ -324,5 +323,67 @@ Router.put('/:id', chisteController.putChiste);
  *                   example: Descripción del error
  */
 Router.get("/contarChistes/:f", chisteController.getCantidadDeChistesPorCategoria);
+
+/**
+ * @swagger
+ * /api/chistes/fuente/GetChisteID/{id}:
+ *   get:
+ *     summary: Obtiene un chiste por su ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: El ID del chiste a obtener
+ *     responses:
+ *       200:
+ *         description: Chiste obtenido exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 _id:
+ *                   type: string
+ *                   example: 611cfc1c4f1c2c1a1c1c1c1c
+ *                 texto:
+ *                   type: string
+ *                   example: ¿Por qué los pájaros no usan Facebook? Porque ya tienen Twitter.
+ *                 autor:
+ *                   type: string
+ *                   example: Anon
+ *                 puntaje:
+ *                   type: number
+ *                   example: 5
+ *                 categoria:
+ *                   type: string
+ *                   example: Chistoso
+ *       404:
+ *         description: Chiste no encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Chiste no encontrado
+ *       500:
+ *         description: Error en el servidor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: FAILED
+ *                 error:
+ *                   type: string
+ *                   example: Descripción del error
+ */
+Router.get('/getChisteID/:id', chisteController.getChisteID);
+
 
 module.exports = Router;
