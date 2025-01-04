@@ -51,6 +51,19 @@ const putChisteByID = async (id, updates) => {
         throw error;
     }
 };
+/**
+ * Servicio para obtener un chiste por su ID
+ * @param {string} id - ID del chiste
+ * @returns {object|null} - El chiste encontrado o null si no se encuentra
+ */
+const getChisteById = async (id) => {
+    try {
+        const chiste = await Chiste.findById(id);
+        return chiste;
+    } catch (error) {
+        throw new Error('Error al obtener el chiste');
+    }
+};
 
 module.exports = {
     getChuckJoke,
@@ -59,5 +72,6 @@ module.exports = {
     chisteExistente,
     postChiste,
     deleteChisteByID,
-    putChisteByID
+    putChisteByID,
+    getChisteById
 };
