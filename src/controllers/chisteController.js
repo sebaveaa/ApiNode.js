@@ -39,6 +39,25 @@ const getChiste = async (req, res) => {
     //'Error en la petición a Api externa o a DB'
 
 };
+/**
+ * Controlador para obtener un chiste por su ID
+ * @param {object} req - Objeto de solicitud que es la id del chiste a obtener
+ * @param {object} res - Objeto de respuesta que es el chiste obtenido
+ * @returns {void}
+ */
+const getChisteID = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const chiste = await chisteService.getChisteById(id);
+        if (!chiste) {
+            return res.status(404).send({ message: 'Chiste no encontrado' });
+        }
+        res.status(200).send(`<h1>Chiste proveniente de DB </h1><h2> ${chiste.texto}</h2>Id en Db: ${chiste._id}`);
+    } catch (error) {
+        res.status(500).send({ message: error.message });
+    }
+};
 
 const putChiste = async (req, res) => { 
     const { id } = req.params; 
@@ -94,7 +113,8 @@ module.exports ={
     getChiste,
     postChiste,
     deleteChiste,
-    putChiste
+    putChiste,
+    getChisteID
 };
 
 
