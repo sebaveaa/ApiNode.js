@@ -31,6 +31,15 @@ const chisteExistente = async (json) => {
 }
 
 
+const putChisteByID = async (id, updates) => {
+    try {   
+        const chiste = await Chiste.findByIdAndUpdate(id, updates, { new: true, runValidators: true }); 
+        return chiste;
+    } catch (error) {
+        console.error('Error al eliminar el Chiste:', error); 
+        throw error;
+    }
+};
 
 
 module.exports = {
@@ -39,4 +48,5 @@ module.exports = {
     getRandomChiste,
     chisteExistente,
     postChiste,
+    putChisteByID
 };
