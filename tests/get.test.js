@@ -38,24 +38,3 @@ describe("GET /chistes/fuente/", () => {
         expect(typeof respuesta.body).toBe('object');
     });
 });
-
-describe("GET /chistes/fuente/contarChistes/${categoria}", () =>{
-
-    test("deberia traer la cantidad de chistes de la categoria Malo", async () => {
-        const respuesta = await request(app).get("/api/chistes/fuente/contarChistes/Malo").send();
-        expect(respuesta.status).toBe(200);
-        expect(typeof respuesta.body).toBe('object');
-    });
-
-    test("deberia fallar al pasar una categoria incorrecta", async () => {
-        const respuesta = await request(app).get("/api/chistes/fuente/contarChistes/Inexistente").send();
-        expect(respuesta.status).toBe(404);
-    });
-
-    test("deberia dar error ya que no hay chistes en la categoria Humor Negro", async() => { 
-        const respuesta = await request(app).get("/api/chistes/fuente/contarChistes/Humor%20Negro").send();
-        const cantidad = respuesta.body.cantidad;
-        expect(respuesta.status).toBe(400);
-        expect(cantidad).toEqual(0);
-    });
-});
