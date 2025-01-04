@@ -25,7 +25,14 @@ const getChiste = async (req, res) => {
             case "Propio":
                 chiste = await chisteService.getChistePropio();
                 if(chiste){
-                    res.status(200).send(`<h1>Chiste proveniente de DB </h1><h2> ${chiste.texto}</h2>Id en Db: ${chiste._id}`);
+                    res.status(200).send(
+                        `<h1>Chiste proveniente de DB </h1>
+                        <h2> ${chiste.texto}</h2>
+                        Autor: ${chiste.autor}<br>
+                        Puntaje: ${chiste.puntaje}<br>
+                        Categoría: ${chiste.categoria}<br>
+                        Id en Db: ${chiste._id}`
+                    );
                 }
                 else{
                     res.status(404).send('<h1>No se encontraron chistes en la DB.</h1>');
@@ -89,11 +96,45 @@ const deleteChiste = async (req, res) => {
     }
 };
 
+const getCantidadDeChistesPorCategoria = async (req, res) => {
+    const categoria = req.params.f;
+    const categoriasValidas = ['Dad joke', 'Humor Negro', 'Chistoso', 'Malo'];
+
+    if(categoriasValidas.includes(categoria) == false){
+        return res.status(404).send("Categoría inválida. Las categorias son: ['Dad joke', 'Humor Negro', 'Chistoso', 'Malo']");
+    }
+
+    try {
+        const cantidadDeChistesPorCategoria = await chisteService.getCantidadDeChistesPorCategoria(categoria);
+        if(cantidadDeChistesPorCategoria > 0){
+            res.status(200).json(
+                {
+                    categoria: categoria,
+                    cantidad: cantidadDeChistesPorCategoria
+                }
+            );
+        }
+        else{  
+            res.status(400).json(
+                {
+                    error: `No se encontraron chistes en la categoria: ${categoria}`,
+                    cantidad: 0
+                }
+            );
+        }
+    } catch (error) {
+        console.error('Error al obtener la cantidad de chistes por categoria:', error);
+        res.status(500).send({status: 'FAILED', error: error.message});
+    }
+
+};
+
 module.exports ={
     getChiste,
     postChiste,
     deleteChiste,
-    putChiste
+    putChiste,
+    getCantidadDeChistesPorCategoria
 };
 
 

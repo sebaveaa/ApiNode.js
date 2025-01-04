@@ -176,4 +176,6 @@ Router.delete("/delete/:f", chisteController.deleteChiste);
 
 Router.put('/:id', chisteController.putChiste);
 
+Router.get("/contarChistes/:f", chisteController.getCantidadDeChistesPorCategoria);
+
 module.exports = Router;
