@@ -176,6 +176,8 @@ Router.delete("/delete/:f", chisteController.deleteChiste);
  * @swagger
  * /api/chistes/fuente/{id}:
  *   put:
+ *     tags:
+ *       - Chistes
  *     summary: Actualiza un chiste por su ID
  *     parameters:
  *       - in: path
@@ -266,6 +268,8 @@ Router.put('/:id', chisteController.putChiste);
  * @swagger
  * /api/chistes/fuente/contarChistes/{categoria}:
  *   get:
+ *     tags:
+ *       - Chistes
  *     summary: Obtiene la cantidad de chistes en una categoría específica
  *     parameters:
  *       - in: path
@@ -324,10 +328,13 @@ Router.put('/:id', chisteController.putChiste);
  */
 Router.get("/contarChistes/:f", chisteController.getCantidadDeChistesPorCategoria);
 
+
 /**
  * @swagger
- * /api/chistes/fuente/GetChisteID/{id}:
+ * /api/chistes/fuente/getChisteID/{id}:
  *   get:
+ *     tags:
+ *       - Chistes
  *     summary: Obtiene un chiste por su ID
  *     parameters:
  *       - in: path
