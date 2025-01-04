@@ -47,10 +47,21 @@ const putChisteByID = async (id, updates) => {
         const chiste = await Chiste.findByIdAndUpdate(id, updates, { new: true, runValidators: true }); 
         return chiste;
     } catch (error) {
-        console.error('Error al eliminar el Chiste:', error); 
+        console.error('Error al actualiazar el Chiste:', error); 
         throw error;
     }
 };
+
+const getCantidadDeChistesPorCategoria = async (categoria) => {
+    try{
+        const cantidad = await Chiste.countDocuments({ 'categoria': categoria });
+        return cantidad;
+    }
+    catch (error){
+        throw error;
+    }
+}
+
 /**
  * Servicio para obtener un chiste por su ID
  * @param {string} id - ID del chiste
@@ -73,5 +84,6 @@ module.exports = {
     postChiste,
     deleteChisteByID,
     putChisteByID,
+    getCantidadDeChistesPorCategoria,
     getChisteById
 };

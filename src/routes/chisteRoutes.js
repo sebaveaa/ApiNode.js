@@ -195,4 +195,6 @@ Router.put('/:id',chisteController.putChiste);
  */
 Router.get('/getChisteID/:id',chisteController.getChisteID);
 
+Router.get("/contarChistes/:f", chisteController.getCantidadDeChistesPorCategoria);
+
 module.exports = Router;
