@@ -130,50 +130,36 @@ Router.get("/:f",chisteController.getChiste);
 Router.post("/Propio", chisteController.postChiste);
 
 /**
- * @swagger
- * /api/chistes/fuente/delete/{id}:
- *   delete:
- *     tags:
- *       - Chistes
- *     summary: Elimina un chiste por su ID
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *         description: El ID del chiste a eliminar
- *     responses:
- *       200:
- *         description: Chiste eliminado exitosamente
- *         content:
- *           application/json:
- *             schema:
- *               type: string
- *               example: Chiste eliminado exitosamente
- *       404:
- *         description: No se encontró el chiste para eliminar
- *         content:
- *           application/json:
- *             schema:
- *               type: string
- *               example: No se encontró el chiste para eliminar
- *       500:
- *         description: Error en el servidor
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status:
- *                   type: string
- *                   example: FAILED
- *                 error:
- *                   type: string
- *                   example: Descripción del error
+ * @route PUT /api/chistes/fuente/:id
+ * @desc Actualiza un chiste existente
+ * @access Public
+ * @param {string} req.params.id - El ID del chiste a actualizar
+ * @param {object} req.body - Los campos para actualizar en el chiste
+ * @returns {object} 200 - El chiste actualizado
+ * @returns {object} 404 - No se encontró el chiste
+ * @returns {object} 400 - Error de validación u otro error
  */
-Router.delete("/delete/:f", chisteController.deleteChiste);
+Router.put('/:id',chisteController.updateChiste);
+/**
+ * @route GET /api/chistes/fuente/random
+ * @desc Obtiene el ID de un chiste aleatorio
+ * @access Public
+ * @returns {object} 200 - Un objeto con el ID del chiste aleatorio
+ * @returns {object} 404 - No se encontraron chistes
+ * @returns {object} 500 - Error del servidor
+ */
+Router.get('/random', chisteController.getRandomChisteId);
+/** 
+    * @route GET /api/chistes/fuente/Propio/get/id:
+    * @desc Obtiene un chiste por su ID
+    * @access Public 
+    * @returns {object} 200 - El chiste encontrado 
+    * @returns {object} 404 - No se encontró el chiste 
+    * @returns {object} 500 - Error del servidor 
+ */
+Router.get('/GetChisteID/:id',chisteController.getChisteID);
 
-Router.put('/:id', chisteController.putChiste);
+
+
 
 module.exports = Router;

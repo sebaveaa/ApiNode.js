@@ -1,4 +1,5 @@
 const chisteService = require('../services/chisteService');
+const Chiste = require('../models/chiste.model');
 
 const getChiste = async (req, res) => {
     
