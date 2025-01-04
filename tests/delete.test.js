@@ -12,13 +12,11 @@ beforeAll(async () => {
 
 describe("DELETE /chistes", () => {
     
-  
-
   test("debería eliminar un chiste al pasar el id", async () => {
 
     const chiste = {
       texto:'¿Cómo se despiden los químicos? Ácido un placer.',
-      puntaje:1,
+      puntaje: 1,
       categoria: 'Malo'
     }
   

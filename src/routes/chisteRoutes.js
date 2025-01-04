@@ -52,8 +52,6 @@ const Chiste = require("../models/chiste.model")
  *                   type: string
  *                   example: Fuente de chiste invalida
  */
-Router.get("/:f",chisteController.getChiste)
-
 Router.get("/:f",chisteController.getChiste);
 
 /**
@@ -130,6 +128,51 @@ Router.get("/:f",chisteController.getChiste);
 Router.post("/Propio", chisteController.postChiste);
 
 /**
+ * @swagger
+ * /api/chistes/fuente/delete/{id}:
+ *   delete:
+ *     tags:
+ *       - Chistes
+ *     summary: Elimina un chiste por su ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: El ID del chiste a eliminar
+ *     responses:
+ *       200:
+ *         description: Chiste eliminado exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: string
+ *               example: Chiste eliminado exitosamente
+ *       404:
+ *         description: No se encontró el chiste para eliminar
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: string
+ *               example: No se encontró el chiste para eliminar
+ *       500:
+ *         description: Error en el servidor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: FAILED
+ *                 error:
+ *                   type: string
+ *                   example: Descripción del error
+ */
+Router.delete("/delete/:f", chisteController.deleteChiste);
+
+/**
  * @route PUT /api/chistes/fuente/:id
  * @desc Actualiza un chiste existente
  * @access Public
@@ -150,9 +193,6 @@ Router.put('/:id',chisteController.putChiste);
     * @returns {object} 404 - No se encontró el chiste 
     * @returns {object} 500 - Error del servidor 
  */
-Router.get('/GetChisteID/:id',chisteController.getChisteID);
-
-
-
+Router.get('/getChisteID/:id',chisteController.getChisteID);
 
 module.exports = Router;

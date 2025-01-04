@@ -20,8 +20,6 @@ describe('GET /chistes/:id', () => {
         await chiste.save();
         chisteId = chiste._id;
     }); 
-    
-    
 
     // Después realizar las pruebas, desconectar de la base de datos 
     afterAll(async () => {
