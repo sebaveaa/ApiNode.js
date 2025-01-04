@@ -53,6 +53,7 @@ const Chiste = require("../models/chiste.model")
  *                   example: Fuente de chiste invalida
  */
 Router.get("/:f",chisteController.getChiste);
+Router.get("/:f",chisteController.getChiste)
 
 /**
  * @openapi 
@@ -173,28 +174,155 @@ Router.post("/Propio", chisteController.postChiste);
 Router.delete("/delete/:f", chisteController.deleteChiste);
 
 /**
- * @route PUT /api/chistes/fuente/:id
- * @desc Actualiza un chiste existente
- * @access Public
- * @param {string} req.params.id - El ID del chiste a actualizar
- * @param {object} req.body - Los campos para actualizar en el chiste
- * @returns {object} 200 - El chiste actualizado
- * @returns {object} 404 - No se encontró el chiste
- * @returns {object} 400 - Error de validación u otro error
+ * @swagger
+ * /api/chistes/fuente/{id}:
+ *   put:
+ *     summary: Actualiza un chiste por su ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: El ID del chiste a actualizar
+ *       - in: body
+ *         name: updates
+ *         description: Los campos a actualizar del chiste
+ *         required: true
+ *         schema:
+ *           type: object
+ *           properties:
+ *             texto:
+ *               type: string
+ *               example: ¿Por qué los pájaros no usan Facebook? Porque ya tienen Twitter.
+ *             autor:
+ *               type: string
+ *               example: Anon
+ *             puntaje:
+ *               type: number
+ *               example: 5
+ *             categoria:
+ *               type: string
+ *               example: Chistoso
+ *     responses:
+ *       200:
+ *         description: Chiste actualizado exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 _id:
+ *                   type: string
+ *                   example: 611cfc1c4f1c2c1a1c1c1c1c
+ *                 texto:
+ *                   type: string
+ *                   example: ¿Por qué los pájaros no usan Facebook? Porque ya tienen Twitter.
+ *                 autor:
+ *                   type: string
+ *                   example: Anon
+ *                 puntaje:
+ *                   type: number
+ *                   example: 5
+ *                 categoria:
+ *                   type: string
+ *                   example: Chistoso
+ *       400:
+ *         description: Petición inválida
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Descripción del error
+ *       404:
+ *         description: Chiste no encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Chiste no encontrado
+ *       500:
+ *         description: Error en el servidor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: FAILED
+ *                 error:
+ *                   type: string
+ *                   example: Descripción del error
  */
-Router.put('/:id',chisteController.putChiste);
+Router.put('/:id', chisteController.putChiste);
+
 /**
-
-/** 
-    * @route GET /api/chistes/fuente/Propio/get/id:
-    * @desc Obtiene un chiste por su ID
-    * @access Public 
-    * @returns {object} 200 - El chiste encontrado 
-    * @returns {object} 404 - No se encontró el chiste 
-    * @returns {object} 500 - Error del servidor 
+ * @swagger
+ * /api/chistes/fuente/contarChistes/{categoria}:
+ *   get:
+ *     summary: Obtiene la cantidad de chistes en una categoría específica
+ *     parameters:
+ *       - in: path
+ *         name: categoria
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: La categoría de los chistes
+ *     responses:
+ *       200:
+ *         description: La cantidad de chistes en la categoría especificada
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 categoria:
+ *                   type: string
+ *                   example: Humor Negro
+ *                 cantidad:
+ *                   type: integer
+ *                   example: 5
+ *                 html:
+ *                   type: string
+ *                   example: <h1>La cantidad es 5</h1>
+ *       400:
+ *         description: No se encontraron chistes en la categoría especificada
+ *         content:
+ *           text/html:
+ *             schema:
+ *               type: string
+ *               example: <h1>No se encontraron chistes en la categoría Humor Negro.</h1>
+ *       404:
+ *         description: Categoría inválida
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Categoría inválida. Las categorias son: ['Dad joke', 'Humor Negro', 'Chistoso', 'Malo']"
+ *       500:
+ *         description: Error en el servidor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: FAILED
+ *                 error:
+ *                   type: string
+ *                   example: Descripción del error
  */
-Router.get('/getChisteID/:id',chisteController.getChisteID);
-
 Router.get("/contarChistes/:f", chisteController.getCantidadDeChistesPorCategoria);
 
 module.exports = Router;
