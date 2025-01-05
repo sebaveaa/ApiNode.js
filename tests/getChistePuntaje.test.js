@@ -1,48 +1,43 @@
 const request = require('supertest');
 const mongoose = require('mongoose');
-const app = require('../src/app'); 
-const Chiste = require('../src/models/chiste.model');
+const app = require("../src/app");
+const Chiste = require("../src/models/chiste.model.js");
 
-describe('GET /chistes/:id', () => {
-    let chisteId;
-
-    //Conexion con la base de datos y creamos un chiste para asi obtener su id
+describe('GET /chistes/puntaje/:puntaje', () => {
+    // Conecta  la base de datos y se crean chistes de prueba antes de todas las pruebas
     beforeAll(async () => {
-        const url = 'mongodb+srv://sdvera23:1YuEwRQ2TgQKVHHa@chistesdb.kib8q.mongodb.net/?retryWrites=true&w=majority&appName=ChistesDB'; // Cambia esta URL a la de tu base de datos de prueba
+        const url = 'mongodb+srv://sdvera23:1YuEwRQ2TgQKVHHa@chistesdb.kib8q.mongodb.net/?retryWrites=true&w=majority&appName=ChistesDB'; 
         await mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
 
-        const chiste = new Chiste({
-            texto: "Este es un chiste de prueba",
-            autor: "Autor de Prueba",
-            puntaje: 5,
-            categoria: "Chistoso"
-        });
-        await chiste.save();
-        chisteId = chiste._id;
-    }); 
+        const chistes = [
+            { texto: "Chiste 1", autor: "Autor 1", puntaje: 5, categoria: "Chistoso" },
+            { texto: "Chiste 2", autor: "Autor 2", puntaje: 7, categoria: "Chistoso" },
+            { texto: "Chiste 3", autor: "Autor 3", puntaje: 5, categoria: "Chistoso" }
+        ];
+        await Chiste.insertMany(chistes);
+    });
 
-    // Después realizar las pruebas, desconectar de la base de datos 
+   
     afterAll(async () => {
-        await Chiste.deleteOne({
-            texto: 'Este es un chiste de prueba'
-        });
-
+        
         await mongoose.connection.close();
     });
 
-    it('debería devolver un chiste existente por su ID', async () => {
-        const response = await request(app).get(`/api/chistes/fuente/getChisteID/${chisteId}`).send();
-        expect(typeof response.body).toBe('object');
-        expect(response.status).toBe(200);
+    it('debería devolver todos los chistes con la puntuación indicada', async () => {
+        const response = await request(app)
+            .get('/chistes/puntaje/5')
+            .expect(200);
+
+        expect(response.body.length).toBe(2);
+        expect(response.body[0].puntaje).toBe(5);
+        expect(response.body[1].puntaje).toBe(5);
     });
 
-    it('debería devolver 404 si el chiste no se encuentra', async () => {
-        const nonExistentId = new mongoose.Types.ObjectId();
-
+    it('debería devolver un array vacío si no hay chistes con la puntuación indicada', async () => {
         const response = await request(app)
-            .get(`/api/chistes/fuente/GetChisteID/${nonExistentId}`)
-            .expect(404);
+            .get('/chistes/puntaje/10')
+            .expect(200);
 
-        expect(response.body.message).toBe('Chiste no encontrado');
+        expect(response.body.length).toBe(0);
     });
 });
