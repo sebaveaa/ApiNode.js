@@ -9,7 +9,7 @@ describe('PUT /chistes/:id', () => {
 
     // Antes de todas las pruebas, conectar a la base de datos y crear un chiste
     beforeAll(async () => {
-        const url = 'mongodb+srv://sdvera23:1YuEwRQ2TgQKVHHa@chistesdb.kib8q.mongodb.net/?retryWrites=true&w=majority&appName=ChistesDB'; // Cambia esta URL a la de tu base de datos de prueba
+        const url = 'mongodb+srv://sdvera23:1YuEwRQ2TgQKVHHa@chistesdb.kib8q.mongodb.net/?retryWrites=true&w=majority&appName=ChistesDB'; 
         await mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
 
         const chiste = new Chiste({
