@@ -390,7 +390,16 @@ Router.get("/contarChistes/:f", chisteController.getCantidadDeChistesPorCategori
  *                   type: string
  *                   example: Descripción del error
  */
-Router.get('/getChisteID/:id', chisteController.getChisteID);
+
+/**
+ * @route GET /chistes/puntaje/:puntaje
+ * @desc Obtiene todos los chistes con la puntuación indicada
+ * @access Public
+ * @returns {object} 200 - Lista de chistes con la puntuación indicada
+ * @returns {object} 500 - Error del servidor
+ */
+Router.get('/puntaje/:puntaje', chisteController.getChistesByPuntaje);
+
 
 
 module.exports = Router;

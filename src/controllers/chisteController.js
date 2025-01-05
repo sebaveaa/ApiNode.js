@@ -149,13 +149,56 @@ const getCantidadDeChistesPorCategoria = async (req, res) => {
 
 };
 
+
+/**
+ * Controlador para obtener chistes por puntaje
+ * @param {object} req - Objeto de solicitud
+ * @param {object} res - Objeto de respuesta
+ * @returns {void}
+ */
+const getChistesByPuntaje = async (req, res) => {
+    const puntaje = parseInt(req.params.puntaje, 10); // Convertir a número entero
+
+    if (isNaN(puntaje)) {
+        return res.status(400).send({ message: 'Puntaje no es un número válido' });
+    }
+
+    try {
+        const chistes = await Chiste.find();
+        const chistesFiltrados = [];
+
+        for (let i = 0; i < chistes.length; i++) {
+            if (chistes[i].puntaje === puntaje) {
+                chistesFiltrados.push(`
+                    <h1>${chistes[i].texto}</h1>
+                    <h2>Autor: ${chistes[i].autor}</h2>
+                    <h2>Puntaje: ${chistes[i].puntaje}</h2>
+                    <h2>Categoria: ${chistes[i].categoria}</h2>
+                `);
+            }
+        }
+
+        res.status(200).send(`
+            <html>
+                <body>
+                    ${chistesFiltrados.join('')}
+                </body>
+            </html>
+        `);
+    } catch (error) {
+        res.status(500).send({ message: error.message });
+    }
+};
+
+
+
+
 module.exports ={
     getChiste,
     postChiste,
     deleteChiste,
     putChiste,
     getCantidadDeChistesPorCategoria,
-    getChisteID
+    getChisteID,
+    getChistesByPuntaje
 };
-
-

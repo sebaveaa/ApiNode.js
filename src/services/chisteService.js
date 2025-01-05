@@ -76,6 +76,30 @@ const getChisteById = async (id) => {
     }
 };
 
+
+
+
+const getChistesByPuntaje = async (puntaje) => {
+    try {
+        const chistes = await Chiste.find();
+        const chistesFiltrados = [];
+        
+        for (let i = 0; i < chistes.length; i++) {
+            if (chistes[i].puntaje === puntaje) {
+                chistesFiltrados.push(chistes[i]);
+            }
+        }
+
+        return chistesFiltrados;
+    } catch (error) {
+        throw new Error('Error al obtener los chistes');
+    }
+};
+
+
+
+
+
 module.exports = {
     getChuckJoke,
     getDadJoke,
@@ -85,5 +109,6 @@ module.exports = {
     deleteChisteByID,
     putChisteByID,
     getCantidadDeChistesPorCategoria,
-    getChisteById
+    getChisteById,
+    getChistesByPuntaje
 };
