@@ -78,19 +78,11 @@ const getChisteById = async (id) => {
 
 
 
-
 const getChistesByPuntaje = async (puntaje) => {
     try {
-        const chistes = await Chiste.find();
-        const chistesFiltrados = [];
-        
-        for (let i = 0; i < chistes.length; i++) {
-            if (chistes[i].puntaje === puntaje) {
-                chistesFiltrados.push(chistes[i]);
-            }
-        }
+        const chistes = await Chiste.find({ 'puntaje': puntaje });
+        return JSON.stringify(chistes);
 
-        return chistesFiltrados;
     } catch (error) {
         throw new Error('Error al obtener los chistes');
     }

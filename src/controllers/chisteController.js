@@ -160,33 +160,29 @@ const getChistesByPuntaje = async (req, res) => {
     const puntaje = parseInt(req.params.puntaje, 10); // Convertir a número entero
 
     if (isNaN(puntaje)) {
-        return res.status(400).send({ message: 'Puntaje no es un número válido' });
+        return res.status(400).send({ error: 'Puntaje no es un número válido' });
     }
 
     try {
-        const chistes = await Chiste.find();
-        const chistesFiltrados = [];
+        const chistes = await chisteService.getChistesByPuntaje(puntaje);
+        const array = JSON.parse(chistes);
+        console.log(array);
+        let respuesta = [`<h1>Chistes con puntaje ${puntaje}</h1> <br>`];
 
-        for (let i = 0; i < chistes.length; i++) {
-            if (chistes[i].puntaje === puntaje) {
-                chistesFiltrados.push(`
-                    <h1>${chistes[i].texto}</h1>
-                    <h2>Autor: ${chistes[i].autor}</h2>
-                    <h2>Puntaje: ${chistes[i].puntaje}</h2>
-                    <h2>Categoria: ${chistes[i].categoria}</h2>
+        for(let a of array){
+            respuesta.push(`
+                    <h2>${a.texto}</h2>
+                    <h3>Autor: ${a.autor}</h3>
+                    <h3>Puntaje: ${a.puntaje}</h3>
+                    <h3>Categoria: ${a.categoria}</h3>
+                    <h3>Id en DB: ${a._id}</h3>
+                    <br>
                 `);
-            }
         }
 
-        res.status(200).send(`
-            <html>
-                <body>
-                    ${chistesFiltrados.join('')}
-                </body>
-            </html>
-        `);
+        res.status(200).send(respuesta.join(''));
     } catch (error) {
-        res.status(500).send({ message: error.message });
+        res.status(500).send({ error: error.message });
     }
 };
 
