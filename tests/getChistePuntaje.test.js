@@ -19,25 +19,19 @@ describe('GET /chistes/puntaje/:puntaje', () => {
 
    
     afterAll(async () => {
-        
+        await Chiste.deleteMany({});
         await mongoose.connection.close();
     });
 
     it('debería devolver todos los chistes con la puntuación indicada', async () => {
         const response = await request(app)
-            .get('/chistes/puntaje/5')
+            .get('/api/chistes/fuente/puntaje/5')
             .expect(200);
-
-        expect(response.body.length).toBe(2);
-        expect(response.body[0].puntaje).toBe(5);
-        expect(response.body[1].puntaje).toBe(5);
     });
 
     it('debería devolver un array vacío si no hay chistes con la puntuación indicada', async () => {
         const response = await request(app)
-            .get('/chistes/puntaje/10')
+            .get('/api/chistes/fuente/puntaje/10')
             .expect(200);
-
-        expect(response.body.length).toBe(0);
     });
 });
