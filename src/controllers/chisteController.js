@@ -171,13 +171,13 @@ const getChistesByPuntaje = async (req, res) => {
 
         for(let a of array){
             respuesta.push(`
-                    <h2>${a.texto}</h2>
-                    <h3>Autor: ${a.autor}</h3>
-                    <h3>Puntaje: ${a.puntaje}</h3>
-                    <h3>Categoria: ${a.categoria}</h3>
-                    <h3>Id en DB: ${a._id}</h3>
-                    <br>
-                `);
+                <h2>${a.texto}</h2>
+                Autor: ${a.autor} <br>
+                Puntaje: ${a.puntaje} <br>
+                Categoria: ${a.categoria} <br>
+                Id en DB: ${a._id} <br>
+                <br>
+            `);
         }
 
         res.status(200).send(respuesta.join(''));
