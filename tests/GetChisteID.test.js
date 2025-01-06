@@ -40,7 +40,7 @@ describe('GET /chistes/:id', () => {
         const nonExistentId = new mongoose.Types.ObjectId();
 
         const response = await request(app)
-            .get(`/api/chistes/fuente/GetChisteID/${nonExistentId}`)
+            .get(`/api/chistes/fuente/getChisteID/${nonExistentId}`)
             .expect(404);
 
         expect(response.body.message).toBe('Chiste no encontrado');

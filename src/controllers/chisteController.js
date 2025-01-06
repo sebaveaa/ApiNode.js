@@ -26,14 +26,14 @@ const getChiste = async (req, res) => {
             case "Propio":
                 chiste = await chisteService.getChistePropio();
                 if(chiste){
-                    res.status(200).send(
-                        `<h1>Chiste proveniente de DB </h1>
+                    res.status(200).send(`
+                        <h1>Chiste proveniente de DB </h1>
                         <h2> ${chiste.texto}</h2>
                         Autor: ${chiste.autor}<br>
                         Puntaje: ${chiste.puntaje}<br>
                         Categoría: ${chiste.categoria}<br>
-                        Id en Db: ${chiste._id}`
-                    );
+                        Id en Db: ${chiste._id}
+                    `);
                 }
                 else{
                     res.status(404).send('<h1>No se encontraron chistes en la DB.</h1>');
@@ -60,7 +60,14 @@ const getChisteID = async (req, res) => {
         if (!chiste) {
             return res.status(404).send({ message: 'Chiste no encontrado' });
         }
-        res.status(200).send(`<h1>Chiste proveniente de DB </h1><h2> ${chiste.texto}</h2>Id en Db: ${chiste._id}`);
+        res.status(200).send(`
+                        <h1>Chiste proveniente de DB </h1>
+                        <h2> ${chiste.texto}</h2>
+                        Autor: ${chiste.autor}<br>
+                        Puntaje: ${chiste.puntaje}<br>
+                        Categoría: ${chiste.categoria}<br>
+                        Id en Db: ${chiste._id}
+                    `);
     } catch (error) {
         res.status(500).send({ message: error.message });
     }
@@ -91,7 +98,7 @@ const postChiste= async(req, res) => {
     try {
         const chisteExistente = await chisteService.chisteExistente({ texto });
         if (chisteExistente) {
-            return res.status(400).json({ error: 'Chiste ya existe' });
+            return res.status(409).json({ error: 'Chiste ya existe' });
         }
 
         const chiste = await chisteService.postChiste(req.body);
@@ -166,7 +173,9 @@ const getChistesByPuntaje = async (req, res) => {
     try {
         const chistes = await chisteService.getChistesByPuntaje(puntaje);
         const array = JSON.parse(chistes);
-        console.log(array);
+        if (array.length === 0) {
+            return res.status(404).send({ error: 'No se encontraron chistes con el puntaje indicado' });
+        }
         let respuesta = [`<h1>Chistes con puntaje ${puntaje}</h1> <br>`];
 
         for(let a of array){

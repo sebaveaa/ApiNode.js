@@ -1,6 +1,6 @@
 const request = require('supertest');
 const mongoose = require('mongoose');
-const app = require("../src/app");
+const app = require("../src/app.js");
 const Chiste = require("../src/models/chiste.model.js");
 
 describe('GET /chistes/puntaje/:puntaje', () => {
@@ -19,7 +19,10 @@ describe('GET /chistes/puntaje/:puntaje', () => {
 
    
     afterAll(async () => {
-        await Chiste.deleteMany({});
+        await Chiste.deleteOne({texto: 'Chiste 1'});
+        await Chiste.deleteOne({texto: 'Chiste 2'});
+        await Chiste.deleteOne({texto: 'Chiste 3'});
+        
         await mongoose.connection.close();
     });
 
@@ -29,9 +32,9 @@ describe('GET /chistes/puntaje/:puntaje', () => {
             .expect(200);
     });
 
-    it('debería devolver un array vacío si no hay chistes con la puntuación indicada', async () => {
+    it('debería devolver 404 si no hay chistes con la puntuación indicada', async () => {
         const response = await request(app)
-            .get('/api/chistes/fuente/puntaje/10')
-            .expect(200);
+            .get('/api/chistes/fuente/puntaje/11')
+            .expect(404);
     });
 });

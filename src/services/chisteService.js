@@ -29,7 +29,6 @@ const postChiste = async (json) => {
 };
 const chisteExistente = async (json) => {
     return await Chiste.findOne(json);
-    return await Chiste.findOne(id)
 }
 
 const deleteChisteByID = async(id) => { 

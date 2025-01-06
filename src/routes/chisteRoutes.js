@@ -390,6 +390,7 @@ Router.get("/contarChistes/:f", chisteController.getCantidadDeChistesPorCategori
  *                   type: string
  *                   example: Descripción del error
  */
+Router.get("/getChisteID/:id", chisteController.getChisteID);
 
 /**
 openapi: 3.0.0
