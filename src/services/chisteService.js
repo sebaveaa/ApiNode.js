@@ -1,4 +1,5 @@
 const Chiste = require('../models/chiste.model')
+const mongoose = require('mongoose');
 
 
 const getChuckJoke = async () => {
@@ -40,6 +41,12 @@ const deleteChisteByID = async(id) => {
         throw error;
     }
 }
+
+const idvalido = (id) => {
+
+    return mongoose.Types.ObjectId.isValid(id);
+};
+
 
 const putChisteByID = async (id, updates) => {
     try {   
@@ -101,5 +108,6 @@ module.exports = {
     putChisteByID,
     getCantidadDeChistesPorCategoria,
     getChisteById,
-    getChistesByPuntaje
+    getChistesByPuntaje,
+    idvalido
 };
