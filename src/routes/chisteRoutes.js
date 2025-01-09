@@ -391,65 +391,66 @@ Router.get("/Propio/:id", chisteController.getChisteID);
  */
 Router.get("/contarChistes/:f", chisteController.getCantidadDeChistesPorCategoria);
 
+// Move this block to the top of the file
 /**
-openapi: 3.0.0
-info:
-  title: API de Chistes
-  version: 1.0.0
-  description: API para gestionar chistes, incluyendo obtención de chistes por puntaje.
-paths:
-  /chistes/puntaje/{puntaje}:
-    get:
-      summary: Obtiene todos los chistes con la puntuación indicada
-      description: Retorna una lista de chistes que tienen la puntuación especificada en la URL.
-      parameters:
-        - in: path
-          name: puntaje
-          required: true
-          schema:
-            type: integer
-          description: La puntuación de los chistes que se desean obtener
-      responses:
-        '200':
-          description: Lista de chistes con la puntuación indicada
-          content:
-            text/html:
-              schema:
-                type: string
-                example: |
-                  <html>
-                      <body>
-                          <h1>Chiste 1</h1>
-                          <h2>Autor: Autor 1</h2>
-                          <h2>Puntaje: 5</h2>
-                          <h2>Categoria: Chistoso</h2>
-                          <h1>Chiste 3</h1>
-                          <h2>Autor: Autor 3</h2>
-                          <h2>Puntaje: 5</h2>
-                          <h2>Categoria: Chistoso</h2>
-                      </body>
-                  </html>
-        '400':
-          description: Puntaje no es un número válido
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: Puntaje no es un número válido
-        '500':
-          description: Error del servidor
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: Error al obtener los chistes
-
+ * @openapi
+ * openapi: 3.0.0
+ * info:
+ *   title: API de Chistes
+ *   version: 1.0.0
+ *   description: API para gestionar chistes, incluyendo obtención de chistes por puntaje.
+ * paths:
+ *   /chistes/puntaje/{puntaje}:
+ *     get:
+ *       summary: Obtiene todos los chistes con la puntuación indicada
+ *       description: Retorna una lista de chistes que tienen la puntuación especificada en la URL.
+ *       parameters:
+ *         - in: path
+ *           name: puntaje
+ *           required: true
+ *           schema:
+ *             type: integer
+ *           description: La puntuación de los chistes que se desean obtener
+ *       responses:
+ *         '200':
+ *           description: Lista de chistes con la puntuación indicada
+ *           content:
+ *             text/html:
+ *               schema:
+ *                 type: string
+ *                 example: |
+ *                   <html>
+ *                       <body>
+ *                           <h1>Chiste 1</h1>
+ *                           <h2>Autor: Autor 1</h2>
+ *                           <h2>Puntaje: 5</h2>
+ *                           <h2>Categoria: Chistoso</h2>
+ *                           <h1>Chiste 3</h1>
+ *                           <h2>Autor: Autor 3</h2>
+ *                           <h2>Puntaje: 5</h2>
+ *                           <h2>Categoria: Chistoso</h2>
+ *                       </body>
+ *                   </html>
+ *         '400':
+ *           description: Puntaje no es un número válido
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 type: object
+ *                 properties:
+ *                   message:
+ *                     type: string
+ *                     example: Puntaje no es un número válido
+ *         '500':
+ *           description: Error del servidor
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 type: object
+ *                 properties:
+ *                   message:
+ *                     type: string
+ *                     example: Error al obtener los chistes
  */
 Router.get('/puntaje/:puntaje', chisteController.getChistesByPuntaje);
 
