@@ -1,18 +1,21 @@
 # ApiNode.js
 
-Para correr el proyecto
-descargar nodejs version v22.11.0
+## Para correr el proyecto con docker:
 
-Ya que las dependencias se guardan en el file package json, para correr por primera vez o al agregar dependencias hay que correr el comando en el origen del proyecto
-npm install
+1: Abrir la terminal en posición del proyecto y ejecutar:
+`docker build . -t api-chistes `
+Luego de que se cree la imagen, para correr se debe ejecutar:
+`docker run -p 3000:3000 api-chistes:latest`
 
-//PASOS PARA HACER LA DOCUMENTACION DE UN ENDDPOINT
-\*se va a agregar un endpoint dodnde
-se podra visualisar facilmentye la codumentacion
-Pasos>>
-Crear doc swagger js y especificar rutas
+## Para correr el proyecto sin Docker
 
-PARA TESTS
-se corre con comando npm run test
-primero hay usar el comando npm update para que se decarguen las dependencias faltantes
-se pueden hacer todas en un solo archivo
+Descargar ultima version se nodejs
+
+Correr en la terminar el comando:
+`npm install`
+
+Para ejecutar el proyecto correr:
+`npm start`
+
+Para ejecutar los tests correr:
+`npm run test`
