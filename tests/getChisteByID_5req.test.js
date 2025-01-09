@@ -1,13 +1,12 @@
-
 const request = require('supertest');
 const mongoose = require('mongoose');
-const app = require("../src/app");
-const Chiste = require("../src/models/chiste.model.js");
+const app = require('../src/app'); 
+const Chiste = require('../src/models/chiste.model');
 
-describe('PUT /chistes/:id', () => {
+describe('GET /chistes/:id', () => {
     let chisteId;
 
-    // Antes de todas las pruebas, conectar a la base de datos y crear un chiste
+    //Conexion con la base de datos y creamos un chiste para asi obtener su id
     beforeAll(async () => {
         const url = 'mongodb+srv://sdvera23:1YuEwRQ2TgQKVHHa@chistesdb.kib8q.mongodb.net/?retryWrites=true&w=majority&appName=ChistesDB'; 
         await mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -20,45 +19,28 @@ describe('PUT /chistes/:id', () => {
         });
         await chiste.save();
         chisteId = chiste._id;
-    });
+    }); 
 
+    
     afterAll(async () => {
-        await Chiste.deleteOne({
-            texto: 'Texto del chiste actualizado'
-        });
         await Chiste.deleteOne({
             texto: 'Este es un chiste de prueba'
         });
+
         await mongoose.connection.close();
     });
 
-    it('debería actualizar un chiste existente', async () => {
-        const updates = {
-            texto: "Texto del chiste actualizado",
-            puntaje: 7,
-            categoria:"Malo"
-        };
-
-        const response = await request(app)
-            .put(`/api/chistes/fuente/${chisteId}`)
-            .send(updates)
-            .expect(200);
-
-        expect(response.body.texto).toBe(updates.texto);
-        expect(response.body.puntaje).toBe(updates.puntaje);
+    it('debería devolver un chiste existente por su ID', async () => {
+        const response = await request(app).get(`/api/chistes/fuente/Propio/${chisteId}`).send();
+        expect(typeof response.body).toBe('object');
+        expect(response.status).toBe(200);
     });
 
     it('debería devolver 404 si el chiste no se encuentra', async () => {
         const nonExistentId = new mongoose.Types.ObjectId();
-        const updates = {
-            texto: "Texto del chiste actualizado",
-            puntaje: 7,
-            categoria:"Malo"
-        };
 
         const response = await request(app)
-            .put(`/api/chistes/fuente/${nonExistentId}`)
-            .send(updates)
+            .get(`/api/chistes/fuente/Propio/${nonExistentId}`)
             .expect(404);
 
         expect(response.body.message).toBe('Chiste no encontrado');

@@ -1,5 +1,6 @@
 const chisteService = require('../services/chisteService');
 const Chiste = require('../models/chiste.model');
+const { ConnectionPoolClosedEvent } = require('mongodb');
 
 const getChiste = async (req, res) => {
     
@@ -108,15 +109,20 @@ const postChiste= async(req, res) => {
     }
 };
 
+
 const deleteChiste = async (req, res) => {
-    const id = req.params.f;
+    const id = req.params.id;
+    
     try {
-        const chiste = await chisteService.deleteChisteByID(id);
-        if (chiste) { 
-            res.status(200).send(`<h1>Chiste ${chiste._id} eliminado</h1><h2> Texto: ${chiste.texto} </h2>`);
-        } else {
-            res.status(404).send('No se encontró el chiste para eliminar');
-        }
+            if(!chisteService.idvalido(id))
+                return res.status(400).send({status: 'FAILED', error: "El usuario no paso un id valido"});
+
+            const chiste = await chisteService.deleteChisteByID(id);
+            if (chiste) { 
+                res.status(200).send(`<h1>Chiste ${chiste._id} eliminado</h1><h2> Texto: ${chiste.texto} </h2>`);
+            } else {
+                res.status(404).send('No se encontró el chiste para eliminar');
+            }
     } catch (error) {
         console.error('Error al eliminar el Chiste:', error);
         res.status(500).send({status: 'FAILED', error: error.message});

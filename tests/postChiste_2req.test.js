@@ -8,6 +8,9 @@ const Chiste = require('../src/models/chiste.model');
 
 beforeAll(async () => {
   await mongoose.connect('mongodb+srv://sdvera23:1YuEwRQ2TgQKVHHa@chistesdb.kib8q.mongodb.net/?retryWrites=true&w=majority&appName=ChistesDB');
+    await Chiste.deleteOne({
+    texto: '¿Cómo se despiden los químicos? Ácido un placer.'
+  });
 });
 
 afterAll(async () => {
