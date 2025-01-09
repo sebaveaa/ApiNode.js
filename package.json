@@ -1,0 +1,28 @@
+{
+  "name": "src",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start":"set HOST=localhost&& set PORT=4000&& node src/index.js",
+    "test": "set HOST=localhost&& set PORT=8000&& set NODE_OPTIONS=--experimental-vm-modules && npx jest --detectOpenHandles",
+    "dev": "set HOST=localhost&& set PORT=4000&& nodemon src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "express": "^4.21.2",
+    "mongoose": "^8.9.2",
+    "node-fetch": "^3.3.2",
+    "supertest": "^7.0.0",
+    "swagger": "^0.7.5",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "nodemon": "^3.1.9"
+  }
+}
