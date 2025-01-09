@@ -1,4 +1,8 @@
 # ApiNode.js
+Integrantes:
+Leonardo Ibarra
+Sebastián Llambi
+Sebastián Vera
 
 ## Para correr el proyecto con docker:
 
