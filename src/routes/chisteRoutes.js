@@ -129,7 +129,52 @@ Router.post("/Propio", chisteController.postChiste);
 
 /**
  * @swagger
- * /api/chistes/fuente/Propio/{id}:
+ * /api/chistes/fuente/delete/{id}:
+ *   delete:
+ *     tags:
+ *       - Chistes
+ *     summary: Elimina un chiste por su ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: El ID del chiste a eliminar
+ *     responses:
+ *       200:
+ *         description: Chiste eliminado exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: string
+ *               example: Chiste eliminado exitosamente
+ *       404:
+ *         description: No se encontró el chiste para eliminar
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: string
+ *               example: No se encontró el chiste para eliminar
+ *       500:
+ *         description: Error en el servidor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: FAILED
+ *                 error:
+ *                   type: string
+ *                   example: Descripción del error
+ */
+Router.delete("/delete/:f", chisteController.deleteChiste);
+
+/**
+ * @swagger
+ * /api/chistes/fuente/{id}:
  *   put:
  *     tags:
  *       - Chistes
@@ -217,115 +262,7 @@ Router.post("/Propio", chisteController.postChiste);
  *                   type: string
  *                   example: Descripción del error
  */
-Router.put('/Propio/:id', chisteController.putChiste);
-
-/**
- * @swagger
- * /api/chistes/fuente/Propio/{id}:
- *   delete:
- *     tags:
- *       - Chistes
- *     summary: Elimina un chiste por su ID
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *         description: El ID del chiste a eliminar
- *     responses:
- *       200:
- *         description: Chiste eliminado exitosamente
- *         content:
- *           application/json:
- *             schema:
- *               type: string
- *               example: Chiste eliminado exitosamente
- *       404:
- *         description: No se encontró el chiste para eliminar
- *         content:
- *           application/json:
- *             schema:
- *               type: string
- *               example: No se encontró el chiste para eliminar
- *       500:
- *         description: Error en el servidor
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status:
- *                   type: string
- *                   example: FAILED
- *                 error:
- *                   type: string
- *                   example: Descripción del error
- */
-Router.delete("/Propio/:id", chisteController.deleteChiste);
-
-/**
- * @swagger
- * /api/chistes/fuente/Propio/{id}:
- *   get:
- *     tags:
- *       - Chistes
- *     summary: Obtiene un chiste por su ID
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *         description: El ID del chiste a obtener
- *     responses:
- *       200:
- *         description: Chiste obtenido exitosamente
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 _id:
- *                   type: string
- *                   example: 611cfc1c4f1c2c1a1c1c1c1c
- *                 texto:
- *                   type: string
- *                   example: ¿Por qué los pájaros no usan Facebook? Porque ya tienen Twitter.
- *                 autor:
- *                   type: string
- *                   example: Anon
- *                 puntaje:
- *                   type: number
- *                   example: 5
- *                 categoria:
- *                   type: string
- *                   example: Chistoso
- *       404:
- *         description: Chiste no encontrado
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: Chiste no encontrado
- *       500:
- *         description: Error en el servidor
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status:
- *                   type: string
- *                   example: FAILED
- *                 error:
- *                   type: string
- *                   example: Descripción del error
- */
-Router.get("/Propio/:id", chisteController.getChisteID);
+Router.put('/:id', chisteController.putChiste);
 
 /**
  * @swagger
@@ -391,6 +328,70 @@ Router.get("/Propio/:id", chisteController.getChisteID);
  */
 Router.get("/contarChistes/:f", chisteController.getCantidadDeChistesPorCategoria);
 
+
+/**
+ * @swagger
+ * /api/chistes/fuente/getChisteID/{id}:
+ *   get:
+ *     tags:
+ *       - Chistes
+ *     summary: Obtiene un chiste por su ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: El ID del chiste a obtener
+ *     responses:
+ *       200:
+ *         description: Chiste obtenido exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 _id:
+ *                   type: string
+ *                   example: 611cfc1c4f1c2c1a1c1c1c1c
+ *                 texto:
+ *                   type: string
+ *                   example: ¿Por qué los pájaros no usan Facebook? Porque ya tienen Twitter.
+ *                 autor:
+ *                   type: string
+ *                   example: Anon
+ *                 puntaje:
+ *                   type: number
+ *                   example: 5
+ *                 categoria:
+ *                   type: string
+ *                   example: Chistoso
+ *       404:
+ *         description: Chiste no encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Chiste no encontrado
+ *       500:
+ *         description: Error en el servidor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: FAILED
+ *                 error:
+ *                   type: string
+ *                   example: Descripción del error
+ */
+Router.get("/getChisteID/:id", chisteController.getChisteID);
+
 /**
 openapi: 3.0.0
 info:
@@ -452,6 +453,7 @@ paths:
 
  */
 Router.get('/puntaje/:puntaje', chisteController.getChistesByPuntaje);
+
 
 
 module.exports = Router;
