@@ -43,7 +43,7 @@ const deleteChisteByID = async(id) => {
 }
 
 const idvalido = (id) => {
-
+    console.log(mongoose.Types.ObjectId.isValid(id));
     return mongoose.Types.ObjectId.isValid(id);
 };
 

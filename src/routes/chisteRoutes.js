@@ -3,7 +3,6 @@ const express = require('express');
 
 const chisteController = require("../controllers/chisteController")
 const Router = express.Router();
-const Chiste = require("../models/chiste.model")
 
 
 /**
@@ -129,7 +128,7 @@ Router.post("/Propio", chisteController.postChiste);
 
 /**
  * @swagger
- * /api/chistes/fuente/delete/{id}:
+ * /api/chistes/fuente/Propio/{id}:
  *   delete:
  *     tags:
  *       - Chistes
@@ -170,11 +169,11 @@ Router.post("/Propio", chisteController.postChiste);
  *                   type: string
  *                   example: Descripción del error
  */
-Router.delete("/delete/:f", chisteController.deleteChiste);
+Router.delete("/Propio/:id", chisteController.deleteChiste);
 
 /**
  * @swagger
- * /api/chistes/fuente/{id}:
+ * /api/chistes/fuente/Propio/{id}:
  *   put:
  *     tags:
  *       - Chistes
@@ -262,7 +261,7 @@ Router.delete("/delete/:f", chisteController.deleteChiste);
  *                   type: string
  *                   example: Descripción del error
  */
-Router.put('/:id', chisteController.putChiste);
+Router.put('/Propio/:id', chisteController.putChiste);
 
 /**
  * @swagger
@@ -277,6 +276,7 @@ Router.put('/:id', chisteController.putChiste);
  *         required: true
  *         schema:
  *           type: string
+ *           example: Dad joke  
  *         description: La categoría de los chistes
  *     responses:
  *       200:
@@ -288,7 +288,7 @@ Router.put('/:id', chisteController.putChiste);
  *               properties:
  *                 categoria:
  *                   type: string
- *                   example: Humor Negro
+ *                   example: Dad joke
  *                 cantidad:
  *                   type: integer
  *                   example: 5
@@ -301,7 +301,7 @@ Router.put('/:id', chisteController.putChiste);
  *           text/html:
  *             schema:
  *               type: string
- *               example: <h1>No se encontraron chistes en la categoría Humor Negro.</h1>
+ *               example: <h1>No se encontraron chistes en la categoría Dad joke.</h1>
  *       404:
  *         description: Categoría inválida
  *         content:
@@ -331,7 +331,7 @@ Router.get("/contarChistes/:f", chisteController.getCantidadDeChistesPorCategori
 
 /**
  * @swagger
- * /api/chistes/fuente/getChisteID/{id}:
+ * /api/chistes/fuente/Propio/{id}:
  *   get:
  *     tags:
  *       - Chistes
@@ -390,69 +390,70 @@ Router.get("/contarChistes/:f", chisteController.getCantidadDeChistesPorCategori
  *                   type: string
  *                   example: Descripción del error
  */
-Router.get("/getChisteID/:id", chisteController.getChisteID);
+Router.get("/Propio/:id", chisteController.getChisteID);
 
 /**
-openapi: 3.0.0
-info:
-  title: API de Chistes
-  version: 1.0.0
-  description: API para gestionar chistes, incluyendo obtención de chistes por puntaje.
-paths:
-  /chistes/puntaje/{puntaje}:
-    get:
-      summary: Obtiene todos los chistes con la puntuación indicada
-      description: Retorna una lista de chistes que tienen la puntuación especificada en la URL.
-      parameters:
-        - in: path
-          name: puntaje
-          required: true
-          schema:
-            type: integer
-          description: La puntuación de los chistes que se desean obtener
-      responses:
-        '200':
-          description: Lista de chistes con la puntuación indicada
-          content:
-            text/html:
-              schema:
-                type: string
-                example: |
-                  <html>
-                      <body>
-                          <h1>Chiste 1</h1>
-                          <h2>Autor: Autor 1</h2>
-                          <h2>Puntaje: 5</h2>
-                          <h2>Categoria: Chistoso</h2>
-                          <h1>Chiste 3</h1>
-                          <h2>Autor: Autor 3</h2>
-                          <h2>Puntaje: 5</h2>
-                          <h2>Categoria: Chistoso</h2>
-                      </body>
-                  </html>
-        '400':
-          description: Puntaje no es un número válido
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: Puntaje no es un número válido
-        '500':
-          description: Error del servidor
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: Error al obtener los chistes
-
+ * @openapi
+ * openapi: 3.0.0
+ * info:
+ *   title: API de Chistes
+ *   version: 1.0.0
+ *   description: API para gestionar chistes, incluyendo obtención de chistes por puntaje.
+ * paths:
+ *   /api/chistes/fuente/Propio/puntaje/{puntaje}:
+ *     get:
+ *       summary: Obtiene todos los chistes con la puntuación indicada
+ *       description: Retorna una lista de chistes que tienen la puntuación especificada en la URL.
+ *       parameters:
+ *         - in: path
+ *           name: puntaje
+ *           required: true
+ *           schema:
+ *             type: integer
+ *             example: 8
+ *           description: La puntuación de los chistes que se desean obtener
+ *       responses:
+ *         '200':
+ *           description: Lista de chistes con la puntuación indicada
+ *           content:
+ *             text/html:
+ *               schema:
+ *                 type: string
+ *                 example: |
+ *                   <html>
+ *                       <body>
+ *                           <h1>Chiste 1</h1>
+ *                           <h2>Autor: Autor 1</h2>
+ *                           <h2>Puntaje: 5</h2>
+ *                           <h2>Categoria: Chistoso</h2>
+ *                           <h1>Chiste 3</h1>
+ *                           <h2>Autor: Autor 3</h2>
+ *                           <h2>Puntaje: 5</h2>
+ *                           <h2>Categoria: Chistoso</h2>
+ *                       </body>
+ *                   </html>
+ *         '400':
+ *           description: Puntaje no es un número válido
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 type: object
+ *                 properties:
+ *                   message:
+ *                     type: string
+ *                     example: Puntaje no es un número válido
+ *         '500':
+ *           description: Error del servidor
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 type: object
+ *                 properties:
+ *                   message:
+ *                     type: string
+ *                     example: Error al obtener los chistes
  */
-Router.get('/puntaje/:puntaje', chisteController.getChistesByPuntaje);
+Router.get('/Propio/puntaje/:puntaje', chisteController.getChistesByPuntaje);
 
 
 

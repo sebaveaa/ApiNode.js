@@ -99,7 +99,7 @@ const postChiste= async(req, res) => {
     try {
         const chisteExistente = await chisteService.chisteExistente({ texto });
         if (chisteExistente) {
-            return res.status(409).json({ error: 'Chiste ya existe' });
+            return res.status(400).json({ error: 'Chiste ya existe' });
         }
 
         const chiste = await chisteService.postChiste(req.body);
