@@ -28,13 +28,13 @@ describe('GET /chistes/puntaje/:puntaje', () => {
 
     it('debería devolver todos los chistes con la puntuación indicada', async () => {
         const response = await request(app)
-            .get('/api/chistes/fuente/puntaje/5')
+            .get('/api/chistes/fuente/Propio/puntaje/5')
             .expect(200);
     });
 
     it('debería devolver 404 si no hay chistes con la puntuación indicada', async () => {
         const response = await request(app)
-            .get('/api/chistes/fuente/puntaje/11')
+            .get('/api/chistes/fuente/Propio/puntaje/11')
             .expect(404);
     });
 });

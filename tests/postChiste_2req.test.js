@@ -51,7 +51,7 @@ describe("Post /chistes/fuente/Propio", () => {
 
     const respuesta = await request(app).post("/api/chistes/fuente/Propio").send(chiste);
     
-    expect(respuesta.status).toBe(409);
+    expect(respuesta.status).toBe(400);
     expect(typeof respuesta.body).toBe('object');
   });
 });
