@@ -1,4 +1,5 @@
 # ApiNode.js
+
 Integrantes:
 Leonardo Ibarra
 Sebastián Llambi
@@ -37,4 +38,3 @@ Luego de tener todo instalado, se puede correr el proyecto con el comando:
 Para correr los tests, utilizar el comando:
 
     npm run test
-
